@@ -1,12 +1,12 @@
+import pytesseract
 from PIL import Image
-import pandas as pd
 
 image_path = 'a.png'
+
 image = Image.open(image_path)
 
-pixel_data = list(image.getdata())
+image = image.convert('L')
 
-df = pd.DataFrame(pixel_data, columns=['R', 'G', 'B'])
+text = pytesseract.image_to_string(image)
 
-output_path = 'a.parquet'
-df.to_parquet(output_path)
+print(text)
